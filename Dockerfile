@@ -2,6 +2,8 @@
 FROM maven:3.9.6-eclipse-temurin-21 AS builder
 WORKDIR /app
 COPY . .
+# Add this before RUN mvn clean package
+ENV MAVEN_OPTS="-Dmaven.clean.failOnError=true"
 RUN mvn clean package -DskipTests
 
 # Step 2: Use a lightweight JDK to run the app
